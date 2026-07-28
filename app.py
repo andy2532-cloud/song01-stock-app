@@ -7,9 +7,9 @@ import pytz
 # 設定網頁標題
 st.set_page_config(page_title="全球股票監控", layout="wide")
 
-# 1. 調整標題大小 (使用 Markdown 控制字體大小)
-# 原本的 Title 改為比照 Subheader 的大小
-st.markdown("### 📊 全球股市即時監控 (Excel 模式)")
+# 1. 調整標題大小
+# 將「全球股市即時監控」縮小為 #### 等級（比之前更小）
+st.markdown("#### 📊 全球股市即時監控 (Excel 模式)")
 
 # 自訂你的股票清單
 market_data = {
@@ -48,8 +48,9 @@ tabs = st.tabs(list(market_data.keys()))
 
 for i, (market_name, tickers) in enumerate(market_data.items()):
     with tabs[i]:
-        # 這裡將「市場名稱」縮小，改用粗體字代替標題
-        st.markdown(f"**{market_name} 即時行情**")
+        # 將「市場名稱即時行情」字體縮小（直接使用標準文字並加粗，不使用標題級別）
+        st.write(f"**{market_name} 即時行情**")
+        
         df = get_stock_info(tickers)
         
         if not df.empty:
@@ -59,8 +60,9 @@ for i, (market_name, tickers) in enumerate(market_data.items()):
                 elif val < 0: return 'color: #008000;' # 綠色
                 return ''
 
+            # 修正錯誤：將 applymap 改為 map
             st.dataframe(
-                df.style.applymap(color_change, subset=['漲跌', '漲跌幅(%)']),
+                df.style.map(color_change, subset=['漲跌', '漲跌幅(%)']),
                 use_container_width=True,
                 height=300
             )
@@ -69,7 +71,8 @@ for i, (market_name, tickers) in enumerate(market_data.items()):
 taipei_tz = pytz.timezone('Asia/Taipei')
 now_taipei = datetime.now(taipei_tz).strftime('%Y-%m-%d %H:%M:%S')
 
-st.write(f"最後更新時間 (台北): {now_taipei}")
+# 將底部文字也稍微縮小一點
+st.caption(f"最後更新時間 (台北): {now_taipei}")
 
 if st.button('🔄 點擊刷新價格'):
     st.rerun()
