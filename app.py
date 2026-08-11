@@ -7,7 +7,7 @@ import pytz
 from stocks import market_configs
 
 # 設定網頁標題
-st.set_page_config(page_title="全球股票監控", layout="wide")
+st.set_page_config(page_title="全球股票-01", layout="wide")
 
 # 1. 調整標題大小
 st.markdown("#### 📊 全球股市即時監控 (Excel 模式)")
