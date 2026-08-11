@@ -80,7 +80,8 @@ for i, (market_name, tickers) in enumerate(market_data.items()):
                 return ''
 
             st.dataframe(
-                df.style.map(color_change, subset=['漲跌', '漲跌幅(%)']),
+                df.style.map(color_change, subset=['漲跌', '漲跌幅(%)'])
+                .format("{:.2f}", subset=['當前價格', '漲跌', '漲跌幅(%)']), # 這一行控制小數點
                 use_container_width=True,
                 height=300
             )
